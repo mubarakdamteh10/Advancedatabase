@@ -1,6 +1,16 @@
 import React from "react";
 
 export default class Breadcrumb extends React.Component{
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            name : props.name
+        }
+    }
+
+
     render(){
         return(
             <div class="breadcrumb-option">
