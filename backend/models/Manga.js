@@ -49,6 +49,40 @@ class Manga {
             });
     }
 
+    static fetchView() {
+        const db = getDb();
+        return db
+            .collection('Manga')
+            .find()
+            .sort({view: -1})
+            .limit(5)
+            .toArray()
+            .then(Manga => {
+                console.log(Manga);
+                return Manga;
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+    static fetchNewComment() {
+        const db = getDb();
+        return db
+            .collection('Comment')
+            .find()
+            .sort({date: -1})
+            .limit(4)
+            .toArray()
+            .then(Manga => {
+                console.log(Manga);
+                return Manga;
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
     static findById(prodId) {
         const db = getDb();
         return db

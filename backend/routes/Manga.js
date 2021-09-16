@@ -14,6 +14,9 @@ const Episode = require('../models/Episode');
 
 
 router.get('/searchManga', MangaController.getSearchMangas);
+router.get('/viewerManga', MangaController.getMoreViews);
+router.get('/newComment', MangaController.getNewComment);
+
 router.get('/searchCategory', CategoryController.getSearchCategory);
 router.get('/searcUser', UserController.getSearchUsers);
 router.get('/searchComment', CommentController.getSearchComment); 

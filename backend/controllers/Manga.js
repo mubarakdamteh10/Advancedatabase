@@ -24,6 +24,46 @@ exports.getSearchMangas = (req, res, next) => {
         });
 }
 
+exports.getMoreViews = (req, res, next) => {
+    Mangas.fetchView()
+        .then(Manga => {
+            res.status(200).json({
+                response: {
+                    data: Manga,
+                    message: "success"
+                }
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                response: {
+                    data: [],
+                    message: err
+                }
+            });
+        });
+}
+
+exports.getNewComment = (req, res, next) => {
+    Mangas.fetchNewComment()
+        .then(Manga => {
+            res.status(200).json({
+                response: {
+                    data: Manga,
+                    message: "success"
+                }
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                response: {
+                    data: [],
+                    message: err
+                }
+            });
+        });
+}
+
 exports.postAddMangas = (req, res, next) => {
     console.log(req.body);
     // const category_id = Array[1000];
