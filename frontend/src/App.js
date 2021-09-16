@@ -7,6 +7,7 @@ import AnimeDetail from './pages/AnimeDetail';
 import AnimeData from './pages/AnimeData';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ReadManga from './pages/ReadManga';
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
       {/* <Home/> */}
       {/* <AnimeData/> */}
       {/* <Login/> */}
-      <Register/>
+      <ReadManga/>
+      {/* <Register/> */}
       {/* <AnimeDetail/> */}
       <Footer/>
       
