@@ -5,6 +5,9 @@ import Header from './component/Header';
 import Footer from './component/Footer';
 import AnimeDetail from './pages/AnimeDetail';
 import AnimeData from './pages/AnimeData';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ReadManga from './pages/ReadManga';
 
 function App() {
   return (
@@ -13,7 +16,10 @@ function App() {
       
       <Header/>
       {/* <Home/> */}
-      <AnimeData/>
+      {/* <AnimeData/> */}
+      {/* <Login/> */}
+      <ReadManga/>
+      {/* <Register/> */}
       {/* <AnimeDetail/> */}
       <Footer/>
       
