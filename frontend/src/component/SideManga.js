@@ -34,20 +34,24 @@ export default class TopViewManga extends React.Component{
     }
     render(){
         return(
-        <div class="col-lg-4 col-md-6 col-sm-8">
-            <div class="product__sidebar">
-                <div class="product__sidebar__view">
-                    <div class="section-title">
-                        <h5>Top Views</h5>
+            <>
+                <div class="col-lg-4 col-md-6 col-sm-8">
+                    <div class="product__sidebar">
+                        <div class="product__sidebar__view">
+                            <div class="section-title">
+                                <h5>Top Views</h5>
+                            </div>
+                            {
+                                    this.state.data?.map((item) => (
+                                        <SideTopView name={item.name} cover={item.cover} score={item.score} view={item.view}/>
+                                    ))
+                                } 
+                        </div>
+                        
                     </div>
-                    {
-                            this.state.data?.map((item) => (
-                                <SideTopView name={item.name} cover={item.cover} score={item.score} view={item.view}/>
-                            ))
-                        } 
                 </div>
-            </div>
-        </div>
+        
+        </>
         )
     }
 }
