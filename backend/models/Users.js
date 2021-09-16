@@ -2,11 +2,10 @@ const mongodb = require('mongodb');
 const getDb = require('../util/database').getDb;
 
 class Users {
-    constructor(user_name,password,favorite,history,id) {
+    constructor(user_name,password,favorite,id) {
         this.user_name = user_name;
         this.password = password;
         this.favorite = favorite;
-        this.history = history;
         this._id = id;
 
     }
