@@ -9,7 +9,6 @@ const CommentController = require('../controllers/Comment');
 const UserController = require('../controllers/Users');
 const EpisodeController = require('../controllers/Episode');
 const HistoryController = require('../controllers/History');
-const Episode = require('../models/Episode');
 // /admin/add-product => GET
 
 
@@ -49,8 +48,8 @@ router.post('/insertCategory', [
 
 router.post('/insertComment', [
 
-    check('manga_id').isFloat({ gt: 0 }).withMessage("Manga_id than zero"),
-    check('user_id').isFloat({ gt: 0 }).withMessage("User_id than zero"),
+    check('manga_id').not().isEmpty().withMessage('manga_id is require'),
+    check('user_id').not().isEmpty().withMessage('manga_id is require'),
     check('comment').trim().not().isEmpty().withMessage("Comment  is required"),
     check('date').trim().not().isEmpty().withMessage("Date  is required")
     
@@ -62,10 +61,11 @@ router.post('/insertUser', [
 
     check('user_name').trim().not().isEmpty().withMessage("username  is required"),
     check('password').isFloat({ gt: 0 }).withMessage("Password than zero"),
-    check('favorite').isArray().not().withMessage("Favorite is required"),
-    check('history').isArray().not().withMessage("History is required")
+    check('favorite').not().isEmpty().withMessage('manga_id is require')
     
 ],UserController.postAddUsers);
+
+
 
 router.post('/insertEpisode', [
 
@@ -74,11 +74,18 @@ router.post('/insertEpisode', [
     
 ],EpisodeController.postAddEpisode);
 
+router.post('/insertHistory', [
+    check('user_id').not().isEmpty().withMessage('user_id is require'),
+    check('history').not().isEmpty().withMessage('history is require')
+], HistoryController.postAddHistory);
+
 
 ////////////////////////////////////////////....Update....//////////////////////////////////////////////////////////////
 
 router.post('/updatemangas', 
 [
+    
+    check('Manga_id').not().isEmpty().withMessage('manga_id is require'),
     check('name').trim().not().isEmpty().withMessage("Manga name is required"),
     check('writer').trim().not().isEmpty().withMessage("Manga writer is required"),
     check('year').isFloat({ gt: 0 }).withMessage("year than zero"),
@@ -92,6 +99,7 @@ router.post('/updatemangas',
 
 router.post('/updatecategory', 
 [
+    check('Category_id').not().isEmpty().withMessage("empty"),
     check('name').trim().not().isEmpty().withMessage("Manga name is required")
 ], CategoryController.postUpdateCategory);
 
@@ -109,8 +117,7 @@ router.post('/updateUser', [
     check('Users_id').not().isEmpty().withMessage("empty"),
     check('user_name').trim().not().isEmpty().withMessage("username  is required"),
     check('password').isFloat({ gt: 0 }).withMessage("Password than zero"),
-    check('favorite').isFloat({ gt: 0 }).withMessage("favorite than zero"),
-    check('history').isArray().not().withMessage("History is required")
+    check('favorite').not().isEmpty().withMessage('manga_id is require')
     
 ],UserController.postUpdateUsers);
 
@@ -122,25 +129,30 @@ router.post('/updateEpisode', [
     
 ],EpisodeController.postUpdateEpisode);
 
+router.post('/updateHistory', [
+    check('History_id').not().isEmpty().withMessage('History_id is require'),
+    check('user_id').not().isEmpty().withMessage('user_id is require'),
+    check('history').not().isEmpty().withMessage('history is require')
+], HistoryController.postUpdateHistory);
 
-router.get('/delete/:Manga_id', MangaController.getDeleteMangas);
-router.get('/delete/:Users_id', UserController.getDeleteUsers);
+router.get('/deleteManga/:Manga_id', MangaController.getDeleteMangas);
+router.get('/deleteUsers/:Users_id', UserController.getDeleteUsers);
 router.get('/deleteCategory/:Category_id', CategoryController.getDeleteCategory);
 router.get('/deleteComment/:Comment_id', CommentController.getDeleteComment);
 router.get('/deleteEpisode/:episode_id', EpisodeController.getDeleteEpisode);
+router.get('/deleteHistory/:History_id', HistoryController.getDeleteHistory);
 
 
-router.get('/update/:Manga_id', MangaController.getUpdateMangas);
-router.get('/update/:Users_id', UserController.getUpdateUsers);
+
+router.get('/updateManga/:Manga_id', MangaController.getUpdateMangas);
+router.get('/updateUsers/:Users_id', UserController.getUpdateUsers);
 router.get('/updateCategory/:Category_id', CategoryController.getUpdateCategory);
 router.get('/updateComment/:Comment_id', CommentController.getUpdateComment);
 router.get('/updateEpisode/:episode_id', EpisodeController.getUpdateEpisode);
+router.get('/updateHistory/:History_id', HistoryController.getUpdateHistory);
 
 
-router.post('/insertHistory', [
-    check('user_id').not().isEmpty().withMessage('user_id is require'),
-    check('history').not().isEmpty().withMessage('history is require')
-], HistoryController.postAddHistory);
+
 
 
 exports.routes = router;

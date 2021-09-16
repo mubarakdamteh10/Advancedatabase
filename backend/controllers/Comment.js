@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator')
 const mongodb = require('mongodb');
 const Comment = require('../models/Comment');
 const ObjectId = mongodb.ObjectId;
+var mongoose = require('mongoose');
 
 exports.getSearchComment = (req, res, next) => {
     Comment.fetchAll()
@@ -28,6 +29,8 @@ exports.postAddComment = (req, res, next) => {
     console.log(req.body);
     const { manga_id,user_id,comment,date } = req.body;
     const errors = validationResult(req);
+    var m_id = mongoose.Types.ObjectId(manga_id);
+    var u_id = mongoose.Types.ObjectId(user_id);
     if (!errors.isEmpty()) {
         res.status(200).json({
             response: {
@@ -36,7 +39,7 @@ exports.postAddComment = (req, res, next) => {
             }
         });
     } else {
-        const comments = new Comment(manga_id,user_id,comment,date);
+        const comments = new Comment(m_id,u_id,comment,date);
         comments
             .save()
             .then(result => {
@@ -65,6 +68,8 @@ exports.postUpdateComment = (req, res, next) => {
     console.log(req.body);
     const { Comment_id,manga_id,user_id,comment,date} = req.body;
     const errors = validationResult(req);
+    var m_id = mongoose.Types.ObjectId(manga_id);
+    var u_id = mongoose.Types.ObjectId(user_id);
     if (!errors.isEmpty()) {
         res.status(200).json({
             response: {
@@ -73,7 +78,7 @@ exports.postUpdateComment = (req, res, next) => {
             }
         });
     } else {
-        const comments = new Comment(manga_id,user_id,comment,date,  new ObjectId(Comment_id));
+        const comments = new Comment(m_id,u_id,comment,date,  new ObjectId(Comment_id));
         comments
             .save()
             .then(result => {

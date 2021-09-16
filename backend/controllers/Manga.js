@@ -105,7 +105,7 @@ exports.postAddMangas = (req, res, next) => {
 
 exports.postUpdateMangas = (req, res, next) => {
     console.log(req.body);
-    const { Manga_id, name, writer,year,description,cover,score,view,categories=[] } = req.body;
+    const { Manga_id, name, writer,year,description,cover,score,view,categories } = req.body;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         res.status(200).json({
@@ -115,7 +115,7 @@ exports.postUpdateMangas = (req, res, next) => {
             }
         });
     } else {
-        const Manga = new Mangas(name, writer,year,description,cover,score,view,categories=[], new ObjectId(Manga_id));
+        const Manga = new Mangas(name, writer,year,description,cover,score,view,categories, new ObjectId(Manga_id));
         Manga
             .save()
             .then(result => {
@@ -172,7 +172,7 @@ exports.getUpdateMangas = (req, res, next) => {
     let cover = '';
     let score = '';
     let view = '';
-    let categories=[];
+    let categories;
 
     Mangas.findById(Manga_id)
         .then(Manga => {

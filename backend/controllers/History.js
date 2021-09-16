@@ -71,6 +71,8 @@ exports.postUpdateHistory = (req, res, next) => {
     console.log(req.body);
     const { History_id, user_id,history} = req.body;
     const errors = validationResult(req);
+    var u_id = mongoose.Types.ObjectId(user_id);
+    history[0].manga_id = mongoose.Types.ObjectId(history[0].manga_id);
     if (!errors.isEmpty()) {
         res.status(200).json({
             response: {
@@ -79,7 +81,7 @@ exports.postUpdateHistory = (req, res, next) => {
             }
         });
     } else {
-        const historys = new History(user_id,history,  new ObjectId(History_id));
+        const historys = new History(u_id,history,  new ObjectId(History_id));
         historys
             .save()
             .then(result => {
