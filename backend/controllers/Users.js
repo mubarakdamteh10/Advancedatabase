@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator')
 const mongodb = require('mongodb');
 const Users = require('../models/Users');
 const ObjectId = mongodb.ObjectId;
+var mongoose = require('mongoose');
 
 exports.getSearchUsers = (req, res, next) => {
     Users.fetchAll()
@@ -26,8 +27,10 @@ exports.getSearchUsers = (req, res, next) => {
 
 exports.postAddUsers = (req, res, next) => {
     console.log(req.body);
-    const { user_name,password,favorite,history} = req.body;
+    const { user_name,password,favorite} = req.body;
     const errors = validationResult(req);
+    favorite[0].Manga_id = mongoose.Types.ObjectId(favorite[0].Manga_id);
+    console.log(favorite);
     if (!errors.isEmpty()) {
         res.status(500).json({
             response: {
@@ -36,7 +39,7 @@ exports.postAddUsers = (req, res, next) => {
             }
         });
     } else {
-        const users = new Users(user_name,password,favorite,history);
+        const users = new Users(user_name,password,favorite);
         users
             .save()
             .then(result => {
@@ -63,8 +66,10 @@ exports.postAddUsers = (req, res, next) => {
 
 exports.postUpdateUsers = (req, res, next) => {
     console.log(req.body);
-    const { Users_id,user_name,password,favorite,history} = req.body;
+    const { Users_id,user_name,password,favorite} = req.body;
     const errors = validationResult(req);
+    favorite[0].Manga_id = mongoose.Types.ObjectId(favorite[0].Manga_id);
+    console.log(favorite);
     if (!errors.isEmpty()) {
         res.status(500).json({
             response: {
@@ -73,7 +78,7 @@ exports.postUpdateUsers = (req, res, next) => {
             }
         });
     } else {
-        const users = new Users(user_name,password,favorite,history,  new ObjectId(Users_id));
+        const users = new Users(user_name,password,favorite,  new ObjectId(Users_id));
         users
             .save()
             .then(result => {
