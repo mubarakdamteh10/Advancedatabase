@@ -17,6 +17,8 @@ router.get('/viewerManga', MangaController.getMoreViews);
 router.get('/newComment', MangaController.getNewComment);
 
 router.get('/searchCategory', CategoryController.getSearchCategory);
+router.get('/searchByCategory', CategoryController.getMangaByCategory);
+
 router.get('/searcUser', UserController.getSearchUsers);
 router.get('/searchComment', CommentController.getSearchComment); 
 router.get('/searchHistory', HistoryController.getSearchHistory);
@@ -59,9 +61,9 @@ router.post('/insertComment', [
 
 router.post('/insertUser', [
 
-    check('user_name').trim().not().isEmpty().withMessage("username  is required"),
-    check('password').isFloat({ gt: 0 }).withMessage("Password than zero"),
-    check('favorite').not().isEmpty().withMessage('manga_id is require')
+    // check('user_name').trim().not().isEmpty().withMessage("username  is required"),
+    // check('password').trim().not().isEmpty().withMessage("password is required"),
+    // check('favorite').not().isEmpty().withMessage('manga_id is require')
     
 ],UserController.postAddUsers);
 

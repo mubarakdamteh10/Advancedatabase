@@ -26,10 +26,10 @@ exports.getSearchUsers = (req, res, next) => {
 }
 
 exports.postAddUsers = (req, res, next) => {
-    console.log(req.body);
+    console.log("req.bodyyyy",req.body);
     const { user_name,password,favorite} = req.body;
     const errors = validationResult(req);
-    favorite[0].Manga_id = mongoose.Types.ObjectId(favorite[0].Manga_id);
+    // favorite[0].Manga_id = mongoose.Types.ObjectId(favorite[0].Manga_id);
     console.log(favorite);
     if (!errors.isEmpty()) {
         res.status(500).json({

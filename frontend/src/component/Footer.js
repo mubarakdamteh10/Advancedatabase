@@ -1,6 +1,5 @@
 import React from "react";
-
-
+import { Link } from "react-router-dom"
 export default class Footer extends React.Component{
     render(){
         return(
@@ -18,7 +17,7 @@ export default class Footer extends React.Component{
                         <div class="col-lg-6">
                             <div class="footer__nav">
                                 <ul>
-                                    <li class="active"><a href="./index.html">Homepage</a></li>
+                                    <li class="active"><Link to="/">Homepage</Link></li>
                                     <li><a href="./categories.html">Categories</a></li>
                                     <li><a href="./blog.html">Our Blog</a></li>
                                     <li><a href="#">Contacts</a></li>

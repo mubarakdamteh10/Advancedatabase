@@ -8,6 +8,7 @@ export default class ShowAnime extends React.Component{
         super(props);
         this.state = {
             data: [{
+                _id: "",
                 name: "manga",
                 view: null,
                 score: null,
@@ -59,7 +60,7 @@ export default class ShowAnime extends React.Component{
                             <div className="row">
                             {
                                  this.state.data?.map((item) => (
-                                     <Manga name={item.name} cover={item.cover} score={item.score} view={item.view} category={item.categories} />
+                                     <Manga _id={item._id} name={item.name} cover={item.cover} score={item.score} view={item.view} category={item.categories} />
                                  ))
                              } 
                             </div>

@@ -4,7 +4,6 @@ export default class Breadcrumb extends React.Component{
 
     constructor(props){
         super(props);
-
         this.state = {
             name : props.name
         }

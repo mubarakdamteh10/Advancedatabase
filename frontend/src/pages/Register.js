@@ -1,7 +1,45 @@
 import React from "react";
+import {Link, Redirect} from "react-router-dom";
+import axios from 'axios';
 
 export default class Register extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            user_name: null,
+            password: null,
+            redirect: null
+        }
+    }
+
+    handleChange = (e) => {
+        console.log(e.target.name, e.target.value);
+        let name = e.target.name;
+        let value = e.target.value;
+        this.setState({
+          [name]: value
+        });
+      }
+
+      handleSubmit = (e) => {
+        e.preventDefault();
+        axios.post('http://localhost:3001/manga/insertUser', this.state).then(res => {
+            console.log("this.setStatesadasd", this.state)
+          console.log(res.data);
+          if(res.data.result){
+            this.setState({redirect: '/'});
+          }
+        }).catch(error => {
+          console.log(error);
+        });
+      }
+
     render(){
+        console.log(this.state)
+        if(this.state.redirect){
+            return <Redirect to ="/" />
+        }
         return(
             <section class="signup spad">
                 <div class="container">
@@ -9,17 +47,17 @@ export default class Register extends React.Component{
                         <div class="col-lg-6">
                             <div class="login__form">
                                 <h3>Sign Up</h3>
-                                <form action="#">
-                                    <div class="input__item">
+                                <form action="#" method="post" onSubmit={this.handleSubmit}>
+                                    {/* <div class="input__item">
                                         <input type="email" placeholder="Email address" />
                                         <span class="icon_mail"></span>
-                                    </div>
+                                    </div> */}
                                     <div class="input__item">
-                                        <input type="text" placeholder="Your Name" />
+                                        <input type="text" id="user_name" name="user_name" placeholder="Username" onChange={this.handleChange} />
                                         <span class="icon_profile"></span>
                                     </div>
                                     <div class="input__item">
-                                        <input type="password" placeholder="Password" />
+                                        <input type="password" id="password" name="password" placeholder="Password" onChange={this.handleChange} />
                                         <span class="icon_lock"></span>
                                     </div>
                                     <button type="submit" class="site-btn">Login Now</button>

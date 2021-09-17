@@ -42,6 +42,29 @@ class Category {
                 console.log(err);
             });
     }
+    
+    static fetchByCategory() {
+        const db = getDb();
+        return db
+            .collection('Category')
+            .aggregate([
+                {$lookup:{
+                    from: "Manga",
+                    localField: "name",
+                    foreignField: "categories",
+                    as: "mangaByCategory"
+                }}
+            ])
+            .toArray()
+            .then(Manga => {
+                console.log(Manga);
+                return Manga;
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
 
     static findById(prodId) {
         const db = getDb();

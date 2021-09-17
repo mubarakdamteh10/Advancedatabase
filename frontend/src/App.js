@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Home from './pages/Home';
 import Header from './component/Header';
@@ -14,6 +13,8 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import Category from './pages/Category';
+import ViewManga from './pages/ViewManga';
 
 export default class App extends React.Component {
   render(){
@@ -21,6 +22,10 @@ export default class App extends React.Component {
         <Router>
           <Header />
           <Switch>
+            <Route path="/manga/:manga" component={ViewManga} />
+            <Route path="/categories">
+              <Category />
+            </Route>
             <Route path="/register">
               <Register />
             </Route>

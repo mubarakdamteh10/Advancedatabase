@@ -19,10 +19,10 @@ export default class Header extends React.Component{
                         <nav class="header__menu mobile-menu">
                             <ul>
                                 <li class="active"><Link to="/">Homepage</Link></li>
-                                <li><Link to="./categories.html">Categories <span class="arrow_carrot-down"></span></Link>
+                                <li><Link to="/categories">Categories <span class="arrow_carrot-down"></span></Link>
                                     <ul class="dropdown">
                                         <li><Link to="/categories.html">Categories</Link></li>
-                                        <li><Link to="./animeDetail">Anime Details</Link></li>
+                                        <li><Link to="/animeDetail">Anime Details</Link></li>
                                         {/* <li><Link to="./anime-watching.html">Anime Watching</Link></li> */}
                                         {/* <li><Link to="./blog-details.html">Blog Details</Link></li> */}
                                         <li><Link to="/register">Sign Up</Link></li>

@@ -24,6 +24,27 @@ exports.getSearchCategory = (req, res, next) => {
         });
 }
 
+exports.getMangaByCategory = (req, res, next) => {
+    Category.fetchByCategory()
+        .then(Manga => {
+            res.status(200).json({
+                response: {
+                    data: Manga,
+                    message: "success"
+                }
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                response: {
+                    data: [],
+                    message: err
+                }
+            });
+        });
+}
+
+
 exports.postAddCategory = (req, res, next) => {
     console.log(req.body);
     const { name } = req.body;
