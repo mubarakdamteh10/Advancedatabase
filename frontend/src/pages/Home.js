@@ -11,6 +11,7 @@ export default class Home extends React.Component{
             <>
             <Hero />
             {/* <Breadcrumb/> */}
+            <Hero/>
             <ShowAnime/>
             {/* <MightYouLike /> */}
             </>
