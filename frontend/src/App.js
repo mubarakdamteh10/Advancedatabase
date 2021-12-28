@@ -32,9 +32,10 @@ export default class App extends React.Component {
             <Route path="/login">
               <Login />
             </Route>
-            <Route path="/readmanga">
+            <Route path="/readManga/:_id/:ep" component={ReadManga} />
+            {/* <Route path="/readmanga">
               <ReadManga />
-            </Route>
+            </Route> */}
             <Route path="/animeData" >
               <AnimeData />
             </Route>

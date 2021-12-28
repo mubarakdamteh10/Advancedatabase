@@ -18,8 +18,8 @@ export default class TopViewManga extends React.Component{
         }
     }
 
-    componentDidMount(){
-        this.getData();
+    async componentDidMount(){
+        await this.getData();
     }
 
     getData = () => {
@@ -43,7 +43,7 @@ export default class TopViewManga extends React.Component{
                             </div>
                             {
                                     this.state.data?.map((item) => (
-                                        <SideTopView name={item.name} cover={item.cover} score={item.score} view={item.view}/>
+                                        <SideTopView _id={item._id} name={item.name} cover={item.cover} score={item.score} view={item.view}/>
                                     ))
                                 } 
                         </div>
