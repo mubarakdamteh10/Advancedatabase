@@ -1,7 +1,7 @@
 const mongodb = require('mongodb');
 const getDb = require('../util/database').getDb;
 class Manga {
-    constructor(name, writer,year,description,cover,score,view,categoryies=[100],id) {
+    constructor(name, writer,year,description,cover,score,view,categoryies,id) {
         this.name = name;
         this.writer = writer;
         this.year = year;
