@@ -71,8 +71,9 @@ router.post('/insertUser', [
 
 router.post('/insertEpisode', [
 
-    check('manga_ep').isArray().not().withMessage("manga_ep is required"),
-    check('manga_id').not().isEmpty().withMessage('manga_id is require')
+    check('manga_ep').isFloat({ gt: 0 }).withMessage("manga_ep than zero"),
+    check('manga_id').not().isEmpty().withMessage('manga_id is require'),
+    check('ImagePath').isArray().not().withMessage("ImagePath is required")
     
 ],EpisodeController.postAddEpisode);
 
@@ -90,11 +91,11 @@ router.post('/updatemangas',
     check('Manga_id').not().isEmpty().withMessage('manga_id is require'),
     check('name').trim().not().isEmpty().withMessage("Manga name is required"),
     check('writer').trim().not().isEmpty().withMessage("Manga writer is required"),
-    check('year').isFloat({ gt: 0 }).withMessage("year than zero"),
+    check('year').isInt({ gt: 0 }).withMessage("year than zero"),
     check('description').trim().not().isEmpty().withMessage("Manga description is required"),
     check('cover').trim().not().isEmpty().withMessage("Manga cover is required"),
     check('score').isFloat({ gt: 0 }).withMessage("score than zero"),
-    check('view').isFloat({ gt: 0 }).withMessage("view than zero"),
+    check('view').isInt({ gt: 0 }).withMessage("view than zero"),
     check('categories').isArray().not().withMessage("Manga categories is required")
 ], MangaController.postUpdateMangas);
 
@@ -126,8 +127,9 @@ router.post('/updateUser', [
 router.post('/updateEpisode', [
 
     check('episode_id').not().isEmpty().withMessage('episode_id is require'),
-    check('manga_ep').isArray().not().withMessage("manga_ep is required"),
-    check('manga_id').not().isEmpty().withMessage('manga_id is require')
+    check('manga_ep').isInt({ gt: 0 }).withMessage("manga_ep is required"),
+    check('manga_id').not().isEmpty().withMessage('manga_id is require'),
+    check('ImagePath').isArray().not().withMessage("ImagePath is required")
     
 ],EpisodeController.postUpdateEpisode);
 
@@ -155,6 +157,13 @@ router.get('/updateHistory/:History_id', HistoryController.getUpdateHistory);
 
 
 
+router.get('/getEpisodebyMangaID/:manga_id', EpisodeController.getEpisodebyMangaID); //Search Episode b yMangaID
+router.get('/getMangaNamedb', EpisodeController.getMangaNamedb);
+
+
+router.get('/getEpbyMangaID/:Manga_id',MangaController.getEpisodebyID); // **NEW** lookup Manga with Ep Search by Manga_id
+
+router.get('/getEp/:manga_id/:manga_ep', EpisodeController.getEpisode);
 
 
 exports.routes = router;

@@ -1,7 +1,7 @@
 const mongodb = require('mongodb');
 const getDb = require('../util/database').getDb;
 class Manga {
-    constructor(name, writer,year,description,cover,score,view,categoryies,id) {
+    constructor(name, writer,year,description,cover,score,view,categoryies=[100],id) {
         this.name = name;
         this.writer = writer;
         this.year = year;
@@ -56,6 +56,67 @@ class Manga {
             .find()
             .sort({view: -1})
             .limit(5)
+            .toArray()
+            .then(Manga => {
+                console.log(Manga);
+                return Manga;
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
+
+    // static epmanga(prodId) {
+    //     const db = getDb();
+    //     return db
+    //         .collection('Manga')
+    //         .aggregate()
+    //         .match({ _id: new mongodb.ObjectId(prodId) })
+    //         .lookup({
+    //             from: 'Episode',
+    //             localField: '_id',
+    //             foreignField: 'manga_id',
+    //             as: 'Epmanga'
+    //         })
+    //         .project({	
+    //             _id:0,
+    //             name:1,	
+	// 	        "Epmanga.manga_ep":1,
+	// 	        // "Epmanga.ImagePath":1
+    //         })
+    //         .toArray()
+    //         .then(Manga => {
+    //             console.log(Manga);
+    //             return Manga;
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         });
+    // }
+    static epmanga(prodId) {
+        const db = getDb();
+        return db
+            .collection('Manga')
+            .aggregate()
+            .match({ _id: new mongodb.ObjectId(prodId) })
+            .lookup({
+                from: 'Episode',
+                localField: '_id',
+                foreignField: 'manga_id',
+                as: 'Epmanga'
+            })
+            .project({	
+                _id:0,
+                name: 1,
+                writer: 1,
+                year: 1,
+                description: 1,
+                cover: 1,
+                categories: 1,
+		        "Epmanga.manga_ep":1,
+		        // "Epmanga.ImagePath":1
+            })
             .toArray()
             .then(Manga => {
                 console.log(Manga);

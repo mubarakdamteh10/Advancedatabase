@@ -22,7 +22,7 @@ export default class App extends React.Component {
         <Router>
           <Header />
           <Switch>
-            <Route path="/manga/:manga" component={ViewManga} />
+            <Route path="/manga/:_id" component={ViewManga} />
             <Route path="/categories">
               <Category />
             </Route>

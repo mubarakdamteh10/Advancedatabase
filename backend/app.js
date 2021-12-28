@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 
 
 app.use("/auth", auth.routes);
-app.use("/Manga", mangaData.routes);
+app.use("/manga", mangaData.routes);
 
 mongoConnect(() => {
     app.listen(3001);

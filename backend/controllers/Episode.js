@@ -25,9 +25,30 @@ exports.getSearchEpisode = (req, res, next) => {
         });
 }
 
+exports.getMangaNamedb = (req, res, next) => {
+    Episode.getMangadb()
+        .then(Episodes => {
+            res.status(200).json({
+                response: {
+                    data: Episodes,
+                    message: "success"
+                }
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                response: {
+                    data: [],
+                    message: err
+                }
+            });
+        });
+}
+
+
 exports.postAddEpisode = (req, res, next) => {
     console.log(req.body);
-    const { manga_id, manga_ep } = req.body;
+    const { manga_id, manga_ep,ImagePath } = req.body;
     const errors = validationResult(req);
     var m_id = mongoose.Types.ObjectId(manga_id);
     if (!errors.isEmpty()) {
@@ -38,7 +59,7 @@ exports.postAddEpisode = (req, res, next) => {
             }
         });
     } else {
-        const episode = new Episode(manga_ep, m_id);
+        const episode = new Episode(parseInt(manga_ep), m_id ,ImagePath);
         episode
             .save()
             .then(result => {
@@ -65,7 +86,7 @@ exports.postAddEpisode = (req, res, next) => {
 
 exports.postUpdateEpisode = (req, res, next) => {
     console.log(req.body);
-    const { episode_id, manga_ep, manga_id} = req.body;
+    const { episode_id, manga_ep, manga_id,ImagePath} = req.body;
     const errors = validationResult(req);
     var m_id = mongoose.Types.ObjectId(manga_id)
     if (!errors.isEmpty()) {
@@ -76,7 +97,7 @@ exports.postUpdateEpisode = (req, res, next) => {
             }
         });
     } else {
-        const episode = new Episode(manga_ep, m_id,  new ObjectId(episode_id));
+        const episode = new Episode(parseInt(manga_ep), m_id,ImagePath,  new ObjectId(episode_id));
         episode
             .save()
             .then(result => {
@@ -128,6 +149,7 @@ exports.getUpdateEpisode = (req, res, next) => {
     const { episode_id } = req.params;
     let manga_ep = '';
     let manga_id = '';
+    let ImagePath = '';
 
     Episode.findById(episode_id)
         .then(episode => {
@@ -135,6 +157,58 @@ exports.getUpdateEpisode = (req, res, next) => {
             res.status(200).json({
                 response: {
                     data: episode,
+                    message: "success"
+                }
+            });
+        })
+        .catch(err => {
+            res.status(200).json({
+                response: {
+                    data: [],
+                    message: err
+                }
+            });
+        });
+};
+
+
+exports.getEpisodebyMangaID = (req, res, next) => {
+    //console.log(req.params);
+    const { manga_id } = req.params;
+    console.log(manga_id);
+    let manga_ep = '';
+    let ImagePath = '';
+    Episode.findByMangaId(manga_id)
+        .then(episode => {
+            console.log(episode);
+            res.status(200).json({
+                response: {
+                    data: episode,
+                    message: "success"
+                }
+            });
+        })
+        .catch(err => {
+            res.status(200).json({
+                response: {
+                    data: [],
+                    message: err
+                }
+            });
+        });
+};
+
+exports.getEpisode = (req, res, next) => {
+    //console.log(req.params);
+    const { manga_id } = req.params;
+    const { manga_ep } = req.params;
+    console.log(manga_ep);
+    Episode.getEp(manga_id,parseInt(manga_ep))
+        .then(episode => {
+            console.log(episode);
+            res.status(200).json({
+                response: {
+                    data: episode[0],
                     message: "success"
                 }
             });

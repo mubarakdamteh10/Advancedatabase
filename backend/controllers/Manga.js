@@ -23,6 +23,39 @@ exports.getSearchMangas = (req, res, next) => {
             });
         });
 }
+exports.getEpisodebymang =(req,res,next)=>{
+    console.log(req.params);
+    const { Manga_id } = req.params;
+    let name = '';
+    let writer = '';
+    let year = '';
+    let description = '';
+    let cover = '';
+    let score = '';
+    let view = '';
+    let categories;
+    let Ep = '';
+    let ImagePath = '';
+    
+    Mangas.epmanga(Manga_id)
+    .then(Manga =>{
+        res.status(200).json({
+            response:{
+                data : Manga,
+                message:"Succes"
+            }
+        });
+    })
+    .catch(err => {
+        res.status(500).json({
+            response:{
+                data:[],
+                message:err
+            }
+        })
+    })
+}
+
 
 exports.getMoreViews = (req, res, next) => {
     Mangas.fetchView()
@@ -165,14 +198,14 @@ exports.getDeleteMangas = (req, res, next) => {
 exports.getUpdateMangas = (req, res, next) => {
     console.log(req.params);
     const { Manga_id } = req.params;
-    let name = '';
-    let writer = '';
-    let year = '';
-    let description = '';
-    let cover = '';
-    let score = '';
-    let view = '';
-    let categories;
+    // let name = '';
+    // let writer = '';
+    // let year = '';
+    // let description = '';
+    // let cover = '';
+    // let score = '';
+    // let view = '';
+    // let categories;
 
     Mangas.findById(Manga_id)
         .then(Manga => {
@@ -180,6 +213,32 @@ exports.getUpdateMangas = (req, res, next) => {
             res.status(200).json({
                 response: {
                     data: Manga,
+                    message: "success"
+                }
+            });
+        })
+        .catch(err => {
+            res.status(200).json({
+                response: {
+                    data: [],
+                    message: err
+                }
+            });
+        });
+};
+
+
+exports.getEpisodebyID = (req, res, next) => {
+    console.log(req.params);
+    const { Manga_id } = req.params;
+    //console.log(Manga_id);
+
+    Mangas.epmanga(Manga_id)
+        .then(Manga => {
+            console.log(Manga);
+            res.status(200).json({
+                response: {
+                    data: Manga[0],
                     message: "success"
                 }
             });

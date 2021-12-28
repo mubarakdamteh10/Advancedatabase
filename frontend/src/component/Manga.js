@@ -11,7 +11,7 @@ export default class Manga extends React.Component{
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="product__item">
             <div class="product__item__pic set-bg">
-                <img src={this.props.cover} />
+                <Link to={"/manga/" + this.props._id}><img src={this.props.cover} /></Link>
                 <div class="ep">{this.props.score} / 10</div>
                 <div class="view"><i class="fa fa-eye"></i>{this.props.view}</div>
             </div>
@@ -22,6 +22,7 @@ export default class Manga extends React.Component{
                     <li>{this.props.category[2]}</li>
                 </ul>
                 <h5><Link to={"/manga/" + this.props._id}>{this.props.name}</Link></h5>
+                {/* <h5>{this.props.name}</h5> */}
             </div>
         </div>
     </div>
