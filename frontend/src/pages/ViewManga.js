@@ -96,13 +96,23 @@ export default class ViewManga extends React.Component{
                                             class="fa fa-angle-right"></i></a>
                                     </div>
                                 </div>
-                            </div>  
-                            <div>
-                                {this.state.data.Epmanga?.map(data => (
-                                    <div><Link to={"/readManga/" + this.state._id + "/" + data.manga_ep}> {data.manga_ep}</Link></div>
-                                ))}
                             </div>
+                              
+                            <div className="anime__details__episodes">
+                                <div className="section-title">
+                                    <h5>List Name</h5>
+                                </div>
+                            
+                                {this.state.data.Epmanga?.map(data => (
+                                    <Link to={"/readManga/" + this.state._id + "/" + data.manga_ep}>Ep {data.manga_ep}</Link>
+                                ))}
+                                
+                                
+                            </div>
+                            
+                            
                         </div>
+
                     </div>
                 </div>
             </section>

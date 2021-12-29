@@ -31,22 +31,38 @@ export default class ReadManga extends React.Component{
     }
 
     render(){
+        const style={
+            color:"white"
+        }
         return(
             <div className="container">
                 <div className="row">
                     <div className="col-2">
-                        {/* <!-- space --> */}
+                    <div class="anime__details__btn">
+                        <a href="#" class="follow-btn"><i class="fa fa-arrow-circle-left"></i> Back</a>
+                        
+                    </div>
                     </div>
                     <div className="col-8">
+                    
+                    <h3 style={style}>Ep : {this.state.data.manga_ep}</h3>
                         {this.state.data.ImagePath?.map(data => (
                             <img src={data}></img>
                         ))}
                     </div>
                     <div className="col-2">
-                        {/* <!-- space --> */}
+                        <div class="anime__details__btn">
+                            
+                            <a href="/" class="follow-btn"><span>Next</span> <i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
                     </div>
                     
                 </div>
+                
+                    
+
+                
+                
         </div>
         )
     }
